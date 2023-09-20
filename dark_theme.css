@@ -7,13 +7,13 @@ img{
 }
 
         .header {
-            display: flex; /* Use flexbox to align items horizontally */
-            align-items: center; /* Vertically center the items */
+            display: flex; 
+            align-items: center; 
         }
         .header img {
-            width: 70px; /* Set the width of the image */
-            margin-right: 10px; /* Add some space between the image and the heading */
+            width: 70px; 
+            margin-right: 10px; /* Add some space */
         }
         .header h1 {
-            text-align: center; /* Center the heading text */
+            text-align: center; 
         }
