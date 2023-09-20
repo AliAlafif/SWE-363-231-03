@@ -17,3 +17,22 @@ img{
         .header h1 {
             text-align: center; 
         }
+
+a{
+    color: green;
+}
+
+tr.top {
+        background-color: #FFD700; 
+        color: #FF0000;
+    }
+em {
+        background-color: blue;
+        color: white; 
+    }
+#the_most_important {
+        text-transform: uppercase;
+        background-color: gold;
+    }
+
+
