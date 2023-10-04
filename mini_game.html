@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic-Tac-Toe</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #0fd8a9;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #f8f9f9;
+        }
+
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-gap: 10px;
+        }
+
+        .cell {
+            font-family: Arial, sans-serif;
+            font-size: 2rem;
+            font-weight: bold;
+            background-color: #043425;
+            width: 100px;
+            height: 100px;
+            border: 2px solid #333;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .cell:hover {
+            background-color: #0fd8a9;
+        }
+
+        .cell.X {
+            color: #8fde07;
+        }
+
+        .cell.O {
+            color: #eb8107;
+        }
+        .reset-button {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .reset-button:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 id="turn">
+        Now it's <span>X</span>'s turn
+    </h1>
+    <!-- Board -->
+    <div class="board">
+        <div class="cell" onclick="cellClicked(this)"></div>
+        <div class="cell" onclick="cellClicked(this)"></div>
+        <div class="cell" onclick="cellClicked(this)"></div>
+        <div class="cell" onclick="cellClicked(this)"></div>
+        <div class="cell" onclick="cellClicked(this)"></div>
+        <div class="cell" onclick="cellClicked(this)"></div>
+        <div class="cell" onclick="cellClicked(this)"></div>
+        <div class="cell" onclick="cellClicked(this)"></div>
+        <div class="cell" onclick="cellClicked(this)"></div>
+    </div>
+    <button class="reset-button" onclick="resetGame()">Reset Game</button>
+
+    <script>
+        // Initialize game state
+        let turn = "X";
+        let gameEnded = false;
+        let winner = null;
+
+        function cellClicked(cell) {
+            if (!cell.innerText && !gameEnded) {
+                cell.innerText = turn;
+                cell.classList.add(turn);
+                checkWin();
+                toggleTurn();
+            }
+        }
+
+        function toggleTurn() {
+            turn = turn === "X" ? "O" : "X";
+            document.querySelector("#turn span").innerText = turn;
+        }
+
+        function checkWin() {
+            const cells = document.querySelectorAll(".cell");
+            const winningPatterns = [
+                [0, 1, 2], [3, 4, 5], [6, 7, 8], 
+                [0, 3, 6], [1, 4, 7], [2, 5, 8], 
+                [0, 4, 8], [2, 4, 6] 
+            ];
+
+            for (const pattern of winningPatterns) {
+                const [a, b, c] = pattern;
+                if (cells[a].innerText && cells[a].innerText === cells[b].innerText && cells[a].innerText === cells[c].innerText) {
+                    winner = turn;
+                    document.getElementById("turn").classList.add("winner");
+                    document.getElementById("turn").innerText = `Winner: ${winner}`;
+                    gameEnded = true;
+                    cells[a].classList.add("winner");
+                    cells[b].classList.add("winner");
+                    cells[c].classList.add("winner");
+                    return;
+                }
+            }
+
+            if (Array.from(cells).every(cell => cell.innerText)) {
+                document.getElementById("turn").innerText = "Draw";
+                gameEnded = true;
+            }
+        }
+        function resetGame() {
+            const cells = document.querySelectorAll(".cell");
+            cells.forEach(cell => {
+                cell.innerText = "";
+                cell.classList.remove("X", "O", "winner");
+            });
+            document.getElementById("turn").classList.remove("winner");
+            document.getElementById("turn").innerText = `Now it's X's turn`;
+            turn = "X";
+            gameEnded = false;
+            winner = null;
+        }
+    </script>
+</body>
+</html>
