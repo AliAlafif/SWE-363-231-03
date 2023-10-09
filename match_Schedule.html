@@ -20,7 +20,7 @@
             <th>Date</th>
             <th>Score</th>
         </tr>
-        <tr>
+        <!-- <tr>
             <th width="100"><img src="image/alhilal3.png" width="20" > 
                 <br>
                 <small>Al-hilal</small>
@@ -108,53 +108,73 @@
             <th><img src="image/home_image.jpg" width="20"></th>
             <th><small>15 Sep</small></th>
             <th>---</th>
-        </tr>
-
-        <!-- <tr>
-            <th><img src="alhilal3.png" width="20" > 
-                <br>
-                <small>Al-hilal</small>
-            </th>
-            <th>X</th>
-            <th><img src="Al-Riyadh.jpg" width="20" > 
-                <br>
-                <small>Al-Riyadh</small>
-            </th>
-            <th><img src="home_image.jpg" width="20"></th>
-            <th><small>15 Sep</small></th>
-            <th>---</th>
-        </tr>
-
-        <tr>
-            <th><img src="alhilal3.png" width="20" > 
-                <br>
-                <small>Al-hilal</small>
-            </th>
-            <th>X</th>
-            <th><img src="Al-Riyadh.jpg" width="20" > 
-                <br>
-                <small>Al-Riyadh</small>
-            </th>
-            <th><img src="home_image.jpg" width="20"></th>
-            <th><small>15 Sep</small></th>
-            <th>---</th>
-        </tr>
-
-        <tr>
-            <th><img src="alhilal3.png" width="20" > 
-                <br>
-                <small>Al-hilal</small>
-            </th>
-            <th>X</th>
-            <th><img src="Al-Riyadh.jpg" width="20" > 
-                <br>
-                <small>Al-Riyadh</small>
-            </th>
-            <th><img src="home_image.jpg" width="20"></th>
-            <th><small>15 Sep</small></th>
-            <th>---</th>
         </tr> -->
     </table>
     <br>
+    <script>
+        const matchData = [
+  {
+    team1: "Al-hilal", // i can add the image also here and do it for all below team1 & team2
+    against: "X",
+    team2: "Abha",
+    inOut: "Flight",
+    date: "14 Aug",
+    score: "3-1"
+  },
+  {
+    team1: "Al-hilal",
+    against: "X",
+    team2: "Al-Fayha",
+    inOut: "Home",
+    date: "19 Aug",
+    score: "1-1"
+  },
+  {
+    team1: "Al-hilal",
+    against: "X",
+    team2: "Al-Raed",
+    inOut: "Flight",
+    date: "24 Aug",
+    score: "4-0"
+  },
+  {
+    team1: "Al-hilal",
+    against: "X",
+    team2: "Al-Ettifaq",
+    inOut: "Home",
+    date: "28 Aug",
+    score: "2-0"
+  },
+  {
+    team1: "Al-hilal",
+    against: "X",
+    team2: "Al-Ittihad",
+    inOut: "Flight",
+    date: "01 Sep",
+    score: "4-3"
+  },
+  {
+    team1: "Al-hilal",
+    against: "X",
+    team2: "Al-Riyadh",
+    inOut: "Home",
+    date: "15 Sep",
+    score: "---"
+  }
+];
+
+function addMatchRows() {
+  const table = document.querySelector("table"); 
+
+  matchData.forEach(match => {
+    const row = table.insertRow(); 
+    for (const prop in match) {
+      const cell = row.insertCell(); 
+      cell.textContent = match[prop]; 
+    }
+  });
+}
+window.addEventListener("load", addMatchRows);
+    </script>
 </body>
 </html>
