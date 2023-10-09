@@ -73,6 +73,8 @@
 </head>
 
 <body>
+    <h2>Instructions</h2>
+<p>Enter the number keys (1-9) correspond to the cells on the board to play or "Enter" key to reset</p>
     <h1 id="turn">
         Now it's <span>X</span>'s turn
     </h1>
@@ -95,6 +97,7 @@
         let turn = "X";
         let gameEnded = false;
         let winner = null;
+        const cells = document.querySelectorAll(".cell");
 
         function cellClicked(cell) {
             if (!cell.innerText && !gameEnded) {
@@ -111,11 +114,10 @@
         }
 
         function checkWin() {
-            const cells = document.querySelectorAll(".cell");
             const winningPatterns = [
-                [0, 1, 2], [3, 4, 5], [6, 7, 8], 
-                [0, 3, 6], [1, 4, 7], [2, 5, 8], 
-                [0, 4, 8], [2, 4, 6] 
+                [0, 1, 2], [3, 4, 5], [6, 7, 8],
+                [0, 3, 6], [1, 4, 7], [2, 5, 8],
+                [0, 4, 8], [2, 4, 6]
             ];
 
             for (const pattern of winningPatterns) {
@@ -137,8 +139,8 @@
                 gameEnded = true;
             }
         }
+
         function resetGame() {
-            const cells = document.querySelectorAll(".cell");
             cells.forEach(cell => {
                 cell.innerText = "";
                 cell.classList.remove("X", "O", "winner");
@@ -148,6 +150,26 @@
             turn = "X";
             gameEnded = false;
             winner = null;
+        }
+
+        document.addEventListener("keydown", handleKeyPress);
+
+        function handleKeyPress(event) {
+            if (gameEnded) {
+                return;
+            }
+
+            if (event.key === "Enter") {
+                resetGame();
+            } else if (event.key >= "1" && event.key <= "9") {
+                const index = parseInt(event.key) - 1;
+                if (index >= 0 && index < cells.length) {
+                    const cell = cells[index];
+                    if (!cell.innerText) {
+                        cellClicked(cell);
+                    }
+                }
+            }
         }
     </script>
 </body>
