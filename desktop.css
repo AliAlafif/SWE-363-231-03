@@ -1,0 +1,53 @@
+@media (min-width: 770px) {
+    .header h1 {
+        font-size: 24px;
+        line-height: 1.5;
+    }
+
+    #main-content {
+        margin: 20px;
+    }
+
+    #navbar a {
+        padding: 12px 16px;
+        margin-right: 30px;
+    }
+
+    #navbar a {
+        display: inline-block;
+    }
+    #hamburger-icon {
+        display: none;
+    }
+
+    #latest-news-bar {
+        width: 150px;
+        height: 40px;
+    }
+
+    .card-title {
+        font-size: 18px;
+        margin-right: 60px;
+    }
+
+    .side-content {
+        padding: 30px;
+    }
+
+    .watermarked:after {
+        opacity: 1; 
+    }
+
+    .header img {
+        width: 100px;
+        margin-right: 20px;
+    }
+    
+    #main-content {
+        margin: 20px;
+    }
+    
+    #mobile-navbar {
+        display: none;
+    }
+}
