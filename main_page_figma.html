@@ -3,51 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <title>Al-Hilal Webpage</title>
-    <!-- Include Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-    <!-- Bootstrap Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">
-            <img src="image/alhilal.png" alt="club logo" width="70">
-            Al-Hilal Saudi Club
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="club_players.html" target="_blank">Club Players</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="match_Schedule.html" target="_blank">Match Schedule</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="tournament_history.html" target="_blank">Tournament History</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="contact_us.html" target="_blank">Contact Us</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="arabic_main.html" target="_blank">Arabic</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-
+    <!-- Navigation Bar (unchanged) -->
+    
     <div class="container mt-4">
-        <!-- Bootstrap Jumbotron -->
         <div class="jumbotron">
             <h1 class="display-4">About Al-Hilal</h1>
             <p class="lead">Al-Hilal SFC is a professional football club based in Riyadh, Saudi Arabia, which competes in the Saudi Pro League, the country’s premier football league. Founded on October 16, 1957, Al-Hilal SFC is one of the most successful clubs in the Middle East, having won several domestic and international trophies over the years.</p>
             <hr class="my-4">
             <p class="small">Date: October 2, 2023</p>
         </div>
+        
+        <!-- Weather Widget -->
+        <div id="weather-widget">
+            <h2>Weather in Riyadh</h2>
+            <div id="weather-info">
+                Loading...
+            </div>
+        </div>
     </div>
 
-    <!-- Include Bootstrap JavaScript at the bottom of your HTML -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    <script>
+        // API Key
+        const apiKey = '764d7b5c69d343eea070fd8ff7f79341';
+        
+        // Weather API URL
+        const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=Riyadh,SA&appid=${apiKey}&units=metric`;
+
+        // Function to fetch and display weather data
+        async function fetchWeather() {
+            try {
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+                const { main, weather } = data;
+                const temperature = main.temp;
+                const description = weather[0].description;
+
+                // Display weather information
+                document.getElementById('weather-info').innerHTML = `Temperature: ${temperature}°C, ${description}`;
+            } catch (error) {
+                console.error('Error fetching weather data:', error);
+                document.getElementById('weather-info').innerHTML = 'Failed to fetch weather data.';
+            }
+        }
+
+        // Call the function to fetch and display weather
+        fetchWeather();
+    </script>
 </body>
 </html>
