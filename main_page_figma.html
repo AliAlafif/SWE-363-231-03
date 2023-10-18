@@ -4,6 +4,20 @@
     <meta charset="UTF-8">
     <title>Al-Hilal Webpage</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        #screensaver-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            background: black;
+        }
+    </style>
 </head>
 <body>
     <div class="container mt-4">
@@ -24,75 +38,9 @@
         <div id="content-list">
         </div>
     </div>
-
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-    <script>
-        const WebObject = class {
-            constructor(title, content, date) {
-                this.title = title;
-                this.content = content;
-                this.date = date;
-            }
-        };
-
-        const Article = class extends WebObject {
-            constructor(title, content, date, author) {
-                super(title, content, date);
-                this.author = author;
-            }
-        };
-
-        const Product = class extends WebObject {
-            constructor(title, content, date, price) {
-                super(title, content, date);
-                this.price = price;
-            }
-        };
-
-        const articles = [
-            new Article("Article 1", "This is the content of Article 1.", "2023-10-18", "John Doe"),
-            new Article("Article 2", "Content of Article 2.", "2023-10-19", "Jane Smith"),
-        ];
-
-        const products = [
-            new Product("Product 1", "Description of Product 1.", "2023-10-20", 49.99),
-            new Product("Product 2", "Details of Product 2.", "2023-10-21", 79.99),
-        ];
-
-        (() => {
-            const container = document.getElementById('content-list');
-            
-            const createObjectCard = (object) => {
-                const card = document.createElement('div');
-                card.className = 'card';
-                card.innerHTML = `
-                    <div class="card-body">
-                        <h5 class="card-title">${object.title}</h5>
-                        <p class="card-text">${object.content}</p>
-                        <p class="small">Date: ${object.date}</p>
-                    </div>
-                `;
-                return card;
-            };
-
-            const appendObjectInfo = (card, object) => {
-                if (object instanceof Article) {
-                    card.innerHTML += `<p class="small">Author: ${object.author}</p>`;
-                } else if (object instanceof Product) {
-                    card.innerHTML += `<p class="small">Price: $${object.price}</p>`;
-                }
-            };
-
-            const displayObjects = (objects) => {
-                const objectCards = objects.map(createObjectCard);
-                objectCards.forEach((card, index) => appendObjectInfo(card, objects[index]));
-                return objectCards;
-            };
-
-            const objectCards = displayObjects([...articles, ...products]);
-            objectCards.forEach((card) => container.appendChild(card));
-        })();
-    </script>
+    <div id="screensaver-container"></div>
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="3D.js"></script>
 </body>
 </html>
