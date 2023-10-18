@@ -49,16 +49,21 @@
                 this.price = price;
             }
         };
+
         const articles = [
             new Article("Article 1", "This is the content of Article 1.", "2023-10-18", "John Doe"),
             new Article("Article 2", "Content of Article 2.", "2023-10-19", "Jane Smith"),
         ];
+
         const products = [
             new Product("Product 1", "Description of Product 1.", "2023-10-20", 49.99),
             new Product("Product 2", "Details of Product 2.", "2023-10-21", 79.99),
         ];
+
         (() => {
-            function createObjectCard(object) {
+            const container = document.getElementById('content-list');
+            
+            const createObjectCard = (object) => {
                 const card = document.createElement('div');
                 card.className = 'card';
                 card.innerHTML = `
@@ -69,20 +74,24 @@
                     </div>
                 `;
                 return card;
-            }
-            function appendObjectInfo(card, object) {
+            };
+
+            const appendObjectInfo = (card, object) => {
                 if (object instanceof Article) {
                     card.innerHTML += `<p class="small">Author: ${object.author}</p>`;
                 } else if (object instanceof Product) {
                     card.innerHTML += `<p class="small">Price: $${object.price}</p>`;
                 }
-            }
-            const container = document.getElementById('content-list');
-            [...articles, ...products].forEach(object => {
-                const card = createObjectCard(object);
-                appendObjectInfo(card, object);
-                container.appendChild(card);
-            });
+            };
+
+            const displayObjects = (objects) => {
+                const objectCards = objects.map(createObjectCard);
+                objectCards.forEach((card, index) => appendObjectInfo(card, objects[index]));
+                return objectCards;
+            };
+
+            const objectCards = displayObjects([...articles, ...products]);
+            objectCards.forEach((card) => container.appendChild(card));
         })();
     </script>
 </body>
