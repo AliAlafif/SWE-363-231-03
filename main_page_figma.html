@@ -61,8 +61,7 @@
         ];
 
         function displayObjects(objects, containerId) {
-            const container = document.getElementById(containerId);
-            objects.forEach(object => {
+            function createObjectCard(object) {
                 const card = document.createElement('div');
                 card.className = 'card';
                 card.innerHTML = `
@@ -72,11 +71,21 @@
                         <p class="small">Date: ${object.date}</p>
                     </div>
                 `;
+                return card;
+            }
+
+            function appendObjectInfo(card, object) {
                 if (object instanceof Article) {
                     card.innerHTML += `<p class="small">Author: ${object.author}</p>`;
                 } else if (object instanceof Product) {
                     card.innerHTML += `<p class="small">Price: $${object.price}</p>`;
                 }
+            }
+
+            const container = document.getElementById(containerId);
+            objects.forEach(object => {
+                const card = createObjectCard(object);
+                appendObjectInfo(card, object);
                 container.appendChild(card);
             });
         }
