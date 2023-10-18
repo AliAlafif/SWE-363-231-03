@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-    <!-- Navigation Bar (unchanged) -->
     
     <div class="container mt-4">
         <div class="jumbotron">
@@ -16,7 +15,6 @@
             <p class="small">Date: October 2, 2023</p>
         </div>
         
-        <!-- Weather Widget -->
         <div id="weather-widget">
             <h2>Weather in Riyadh</h2>
             <div id="weather-info">
@@ -28,13 +26,10 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     
     <script>
-        // API Key
         const apiKey = '764d7b5c69d343eea070fd8ff7f79341';
         
-        // Weather API URL
         const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=Riyadh,SA&appid=${apiKey}&units=metric`;
 
-        // Function to fetch and display weather data
         async function fetchWeather() {
             try {
                 const response = await fetch(apiUrl);
@@ -43,7 +38,6 @@
                 const temperature = main.temp;
                 const description = weather[0].description;
 
-                // Display weather information
                 document.getElementById('weather-info').innerHTML = `Temperature: ${temperature}°C, ${description}`;
             } catch (error) {
                 console.error('Error fetching weather data:', error);
@@ -51,7 +45,6 @@
             }
         }
 
-        // Call the function to fetch and display weather
         fetchWeather();
     </script>
 </body>

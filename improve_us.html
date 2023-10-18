@@ -1,64 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   
-    <title>suggest to improve</title>
+    <title>Suggest to Improve</title>
 </head>
 <body style="background-color: black; color: white;">
-    <h1>Suggest us</h1>
-    <form>
+    <h1>Suggest Us</h1>
+    <form id="suggestForm">
         <div>
-            <label for="fname">first name:</label>
-            <input type="text" id="fname" name="fname" placeholder="first name" required>
+            <label for="fname">First Name:</label>
+            <input type="text" id="fname" name="fname" placeholder="First Name" required>
         </div>
         <br>
-
         <div>
-            <label for="lname">last name:</label>
-            <input type="text" id="lname" name="lname" placeholder="last name" required>
+            <label for="lname">Last Name:</label>
+            <input type="text" id="lname" name="lname" placeholder="Last Name" required>
         </div>
         <br>
-
         <div>
-            <label for="ename">email:</label>
+            <label for="ename">Email:</label>
             <input type="email" id="ename" name="ename" placeholder="xxxxxx@gmail.com" required>
         </div>
         <br>
-
         <div>
-            <label for="phname">phone:</label>
+            <label for="phname">Phone:</label>
             <input type="tel" id="phname" name="phname" placeholder="(+966) 55-000-8888">
         </div>
         <br>
-
         <div>
-            <label for="title">gender:</label>
-            <label>male</label>
-            <input type="radio" name="m" id="m"> 
-            <label>female</label>
-            <input type="radio" name="m" id="m">
- 
+            <label for="title">Gender:</label>
+            <label for="male">Male</label>
+            <input type="radio" name="gender" id="male" value="male">
+            <label for="female">Female</label>
+            <input type="radio" name="gender" id="female" value="female">
         </div>
         <br>
-
         <div>
             <label for="message">Message:</label><br>
             <textarea id="message" name="message" rows="4" cols="50"></textarea>
         </div>
         <br>
-
+        <div>
+            <canvas id="signatureCanvas" width="300" height="100" style="border: 1px solid white;"></canvas>
+        </div>
+        <br>
+        <div>
+            <button id="clearSignature">Clear Signature</button>
+        </div>
+        <br>
         <div>
             <input type="reset">
         </div>
         <br>
-        
-
     </form>
-
     <a href="ThankPage.html">
-        <input type="submit">
+        <button id="submitForm">Submit</button>
     </a>
-
-    
+    <script>
+        const signatureCanvas = document.getElementById('signatureCanvas');
+        const clearSignatureButton = document.getElementById('clearSignature');
+        const submitFormButton = document.getElementById('submitForm');
+        const form = document.getElementById('suggestForm');
+        const ctx = signatureCanvas.getContext('2d');
+        ctx.strokeStyle = 'white';
+        ctx.lineWidth = 2;
+        let isDrawing = false;
+        signatureCanvas.addEventListener('mousedown', () => {
+            isDrawing = true;
+        });
+        signatureCanvas.addEventListener('mouseup', () => {
+            isDrawing = false;
+            ctx.beginPath();
+        });
+        signatureCanvas.addEventListener('mousemove', (e) => {
+            if (!isDrawing) return;
+            ctx.lineTo(e.clientX - signatureCanvas.getBoundingClientRect().left, e.clientY - signatureCanvas.getBoundingClientRect().top);
+            ctx.stroke();
+        });
+        clearSignatureButton.addEventListener('click', () => {
+            ctx.clearRect(0, 0, signatureCanvas.width, signatureCanvas.height);
+        });
+        submitFormButton.addEventListener('click', () => {
+            const signatureDataURL = signatureCanvas.toDataURL();
+            const signatureInput = document.createElement('input');
+            signatureInput.type = 'hidden';
+            signatureInput.name = 'signature';
+            signatureInput.value = signatureDataURL;
+            form.appendChild(signatureInput);
+            form.submit();
+        });
+    </script>
 </body>
 </html>
