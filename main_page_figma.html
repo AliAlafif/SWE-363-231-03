@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-    
     <div class="container mt-4">
         <div class="jumbotron">
             <h1 class="display-4">About Al-Hilal</h1>
@@ -14,38 +13,76 @@
             <hr class="my-4">
             <p class="small">Date: October 2, 2023</p>
         </div>
-        
+
         <div id="weather-widget">
             <h2>Weather in Riyadh</h2>
             <div id="weather-info">
                 Loading...
             </div>
         </div>
+
+        <div id="content-list">
+        </div>
     </div>
 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    
+
     <script>
-        const apiKey = '764d7b5c69d343eea070fd8ff7f79341';
-        
-        const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=Riyadh,SA&appid=${apiKey}&units=metric`;
-
-        async function fetchWeather() {
-            try {
-                const response = await fetch(apiUrl);
-                const data = await response.json();
-                const { main, weather } = data;
-                const temperature = main.temp;
-                const description = weather[0].description;
-
-                document.getElementById('weather-info').innerHTML = `Temperature: ${temperature}°C, ${description}`;
-            } catch (error) {
-                console.error('Error fetching weather data:', error);
-                document.getElementById('weather-info').innerHTML = 'Failed to fetch weather data.';
+        class WebObject {
+            constructor(title, content, date) {
+                this.title = title;
+                this.content = content;
+                this.date = date;
             }
         }
 
-        fetchWeather();
+        class Article extends WebObject {
+            constructor(title, content, date, author) {
+                super(title, content, date);
+                this.author = author;
+            }
+        }
+
+        class Product extends WebObject {
+            constructor(title, content, date, price) {
+                super(title, content, date);
+                this.price = price;
+            }
+        }
+
+        const articles = [
+            new Article("Article 1", "This is the content of Article 1.", "2023-10-18", "John Doe"),
+            new Article("Article 2", "Content of Article 2.", "2023-10-19", "Jane Smith"),
+        ];
+
+        const products = [
+            new Product("Product 1", "Description of Product 1.", "2023-10-20", 49.99),
+            new Product("Product 2", "Details of Product 2.", "2023-10-21", 79.99),
+        ];
+
+        function displayObjects(objects, containerId) {
+            const container = document.getElementById(containerId);
+            objects.forEach(object => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <div class="card-body">
+                        <h5 class="card-title">${object.title}</h5>
+                        <p class="card-text">${object.content}</p>
+                        <p class="small">Date: ${object.date}</p>
+                    </div>
+                `;
+                if (object instanceof Article) {
+                    card.innerHTML += `<p class="small">Author: ${object.author}</p>`;
+                } else if (object instanceof Product) {
+                    card.innerHTML += `<p class="small">Price: $${object.price}</p>`;
+                }
+                container.appendChild(card);
+            });
+        }
+
+        displayObjects(articles, 'content-list');
+        displayObjects(products, 'content-list');
     </script>
 </body>
 </html>
