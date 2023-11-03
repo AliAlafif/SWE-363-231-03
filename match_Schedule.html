@@ -3,16 +3,19 @@
 <head>
     <title>4x4 Table</title>
     <link rel="stylesheet" href="dark_theme.css">
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 </head>
 <body>
     <div>
-    <img src="image/alhilal.png" alt="avator" width="70"><a href="main_page.html" title="Main page"><h1>Al-Hilal Saudi Club</h1></a>
-</div>
+        <img src="image/alhilal.png" alt="avator" width="70"><a href="main_page.html" title="Main page"><h1>Al-Hilal Saudi Club</h1></a>
+    </div>
     <hr>
 
     <h3 align="center">match Schedule</h3>
-    <table border="4" th width="600" align="center" >
-        <tr  class="top" style="text-transform: uppercase;">
+    <table border="4" th width="600" align="center">
+        <tr class="top" style="text-transform: uppercase;">
             <th>Team-1</th>
             <th>Against</th>
             <th>Team-2</th>
@@ -20,108 +23,21 @@
             <th>Date</th>
             <th>Score</th>
         </tr>
-        <!-- <tr>
-            <th width="100"><img src="image/alhilal3.png" width="20" > 
-                <br>
-                <small>Al-hilal</small>
-            </th>
-            <th width="100">X</th>
-            <th width="100"><img src="image/abha.jpg" width="20" > 
-                <br>
-                <small>Abha</small>
-            </th>
-            <th width="100"><img src="image/flight_image.jpg" width="20"></th>
-            <th width="100"><small>14 Aug</small></th>
-            <th width="100">3-1</th>
-        </tr>
-
-        <tr>
-            <th><img src="image/alhilal3.png" width="20" > 
-                <br>
-                <small>Al-hilal</small>
-            </th>
-            <th>X</th>
-            <th><img src="image/Al-Fayha.png" width="20" > 
-                <br>
-                <small>Al-Fayha</small>
-            </th>
-            <th><img src="image/home_image.jpg" width="20"></th>
-            <th><small>19 Aug</small></th>
-            <th>1-1</th>
-        </tr>
-
-        <tr>
-            <th><img src="image/alhilal3.png" width="20" > 
-                <br>
-                <small>Al-hilal</small>
-            </th>
-            <th>X</th>
-            <th><img src="image/Al-Raed.png" width="25" height="25"> 
-                <br>
-                <small>Al-Raed</small>
-            </th>
-            <th><img src="image/flight_image.jpg" width="20"></th>
-            <th><small>24 Aug</small></th>
-            <th>4-0</th>
-        </tr>
-
-        <tr>
-            <th><img src="image/alhilal3.png" width="20" > 
-                <br>
-                <small>Al-hilal</small>
-            </th>
-            <th>X</th>
-            <th><img src="image/Ettifaq.png" width="20" > 
-                <br>
-                <small>Al-Ettifaq</small>
-            </th>
-            <th><img src="image/home_image.jpg" width="20"></th>
-            <th><small>28 Aug</small></th>
-            <th>2-0</th>
-        </tr>
-
-        <tr>
-            <th><img src="image/alhilal3.png" width="20" > 
-                <br>
-                <small>Al-hilal</small>
-            </th>
-            <th>X</th>
-            <th><img src="image/Ittihad.png" width="20" > 
-                <br>
-                <small>Al-Ittihad</small>
-            </th>
-            <th><img src="image/flight_image.jpg" width="20"></th>
-            <th><small>01 Sep</small></th>
-            <th>4-3</th>
-        </tr>
-
-        <tr>
-            <th><img src="image/alhilal3.png" width="20" > 
-                <br>
-                <small>Al-hilal</small>
-            </th>
-            <th>X</th>
-            <th><img src="image/Al-Riyadh.jpg" width="20" > 
-                <br>
-                <small>Al-Riyadh</small>
-            </th>
-            <th><img src="image/home_image.jpg" width="20"></th>
-            <th><small>15 Sep</small></th>
-            <th>---</th>
-        </tr> -->
     </table>
     <br>
+    <div id="react-root"></div>
+
     <script>
         const matchData = [
-  {
-    team1: "Al-hilal", // i can add the image also here and do it for all below team1 & team2
-    against: "X",
-    team2: "Abha",
-    inOut: "Flight",
-    date: "14 Aug",
-    score: "3-1"
-  },
-  {
+            {
+                team1: "Al-hilal",
+                against: "X",
+                team2: "Abha",
+                inOut: "Flight",
+                date: "14 Aug",
+                score: "3-1"
+            },
+            {
     team1: "Al-hilal",
     against: "X",
     team2: "Al-Fayha",
@@ -161,20 +77,39 @@
     date: "15 Sep",
     score: "---"
   }
-];
+        ];
 
-function addMatchRows() {
-  const table = document.querySelector("table"); 
+        function addMatchRows() {
+            const table = document.querySelector("table");
 
-  matchData.forEach(match => {
-    const row = table.insertRow(); 
-    for (const prop in match) {
-      const cell = row.insertCell(); 
-      cell.textContent = match[prop]; 
-    }
-  });
-}
-window.addEventListener("load", addMatchRows);
+            matchData.forEach(match => {
+                const row = table.insertRow();
+                for (const prop in match) {
+                    const cell = row.insertCell();
+                    cell.textContent = match[prop];
+                }
+            });
+        }
+
+        window.addEventListener("load", addMatchRows);
+    </script>
+
+    <script type="text/babel">
+        function MyComponent() {
+            return (
+                <div>
+                    <h2>React Element</h2>
+                    <ul>
+        <li><a href="club_players.html">Club Players</a></li>
+        <li><a href="match_Schedule.html">Match Schedule</a></li>
+        <li><a href="tournament_history.html">Tournament History</a></li>
+        <li><a href="contact_us.html">Contact Us</a></li>
+      </ul>
+                </div>
+            );
+        }
+
+        ReactDOM.render(<MyComponent />, document.getElementById("react-root"));
     </script>
 </body>
 </html>
