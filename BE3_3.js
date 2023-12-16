@@ -19,18 +19,27 @@ app.get('/', (req, res) => {
   app.get('/contact_us', (req, res) => {
     res.sendFile(path.resolve(__dirname,'../contact_us.html'));
   });
+  app.get('/improve_us', (req, res) => {
+    res.sendFile(path.resolve(__dirname,'../improve_us.html'));
+  });
 
 const indexRouter = require('./routes/main_page');
 const clubPlayersRouter = require('./routes/club_players');
 const matchScheduleRouter = require('./routes/match_schedule');
 const tournamentHistoryRouter = require('./routes/tournament_history');
 const contactUsRouter = require('./routes/contact_us');
+const contactUsRouter = require('./routes/improve_us');
+
+
+const improveUSMiddleware = require('./improve_us');
+
 
 app.use('/', indexRouter);
 app.use('/club_players', clubPlayersRouter);
 app.use('/match_schedule', matchScheduleRouter);
 app.use('/tournament_history', tournamentHistoryRouter);
 app.use('/contact_us', contactUsRouter);
+app.use('/improve_us', improveUSMiddleware);
 
 
 
